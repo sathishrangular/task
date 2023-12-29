@@ -1,0 +1,74 @@
+<div mat-dialog-title>
+    <h1>Call Deatils record</h1>
+    <h4>please fill the form below clearly indicating your interested call type and best time <br> for calling</h4>
+</div>
+<div mat-dialog-content class="content">
+
+    <form [formGroup]="customerForm">
+        <div class="row" style="margin-bottom: 2rem;">
+            <mat-radio-group aria-label="Select an option" formControlName="callType" class="row">
+                <mat-label>Call Type</mat-label>
+                <mat-radio-button style="margin-left: 2rem;" value="inbound">Inbound</mat-radio-button>
+                <mat-radio-button style="margin-left: 2rem;" value="outbound">Outbound</mat-radio-button>
+                <mat-radio-button style="margin-left: 2rem;" value="conference">conference</mat-radio-button>
+            </mat-radio-group>
+            <span *ngIf="f.callType.invalid && f.callType.touch">this field should required</span>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="Ex. Sathish" type="text" formControlName="firstName">
+                <span *ngIf="f.firstName.invalid && f.firstName.touch">this field should required</span>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput placeholder="Ex. Ramesh" type="text" formControlName="lastName">
+                <span *ngIf="f.lastName.invalid && f.lastName.touch">this field should required</span>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Mobile No</mat-label>
+                <input matInput placeholder="Ex. 9566328048" type="number" formControlName="phoneNo">
+                <span *ngIf="f.phoneNo.invalid && f.phoneNo.touch">this field should required</span>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>clients</mat-label>
+                <mat-select formControlName="clients">
+                    <mat-option *ngFor="let val of clients" [value]="val">{{val}}
+                    </mat-option>
+                </mat-select>
+                <span *ngIf="f.clients.invalid && f.clients.touch">this field should required</span>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Others</mat-label>
+                <input matInput placeholder="Ex. text..." type="text" formControlName="others">
+                <span *ngIf="f.others.invalid && f.others.touch">this field should required</span>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Notes</mat-label>
+                <textarea matInput placeholder="Ex. Notes" formControlName="notes"></textarea>
+                <span *ngIf="f.notes.invalid && f.notes.touch">this field should required</span>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Date</mat-label>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <input matInput [matDatepicker]="picker" formControlName="date">
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div matDialogActions class="action">
+    <button mat-raised-button [matDialogClose]="false">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="customerForm.invalid" (click)="submitForm()">{{data ? 'Update' : 'Save'}}</button>
+</div>
